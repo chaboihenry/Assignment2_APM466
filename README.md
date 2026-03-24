@@ -4,7 +4,7 @@
 ---
 
 ## 📄 Executive Summary (APM466 Assignment 2)
-This study evaluates the creditworthiness of TD Bank across a 7-year horizon by juxtaposing three distinct quantitative frameworks. While the **CreditMetrics (Markov)** model provides a stable, ratings-based historical baseline (PD < 0.7%), the **Structural Merton/KMV** model reveals a theoretical "Leverage Trap," projecting an inflated risk profile (PD ~3.75%) due to the bank's high leverage ratio and the square-root-of-time scaling of uncertainty. 
+This study evaluates the creditworthiness of TD Bank across a 7-year horizon by juxtaposing three distinct quantitative frameworks. While the **CreditMetrics (Markov)** model provides a stable, ratings-based historical baseline (PD < 0.7%), the **Structural Merton/KMV** model reveals a theoretical "Leverage Trap," projecting an inflated risk profile (PD ~3.25%) due to the bank's high leverage ratio and the square-root-of-time scaling of uncertainty. 
 
 The **Market-Implied (Reduced-Form)** model serves as the real-time "truth," pricing a 1-year PD of **1.48%**. This suggests that while structural models are mathematically sound, they often fail to account for the "Too Big to Fail" regulatory backstops and proactive capital management inherent in Systemically Important Financial Institutions (SIFIs).
 
