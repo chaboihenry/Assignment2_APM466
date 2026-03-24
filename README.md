@@ -14,7 +14,7 @@ This repository contains the mathematical engines and visualization scripts requ
 
 ### 2. The Merton/KMV Model (Structural)
 * **Mechanism:** Treats corporate equity as a barrier option on the firm's assets using Black-Cox First Passage Time mathematics.
-* **Engineering:** Implements a dynamic debt barrier ($\gamma$) to neutralize unrealistic asset drift over long horizons. Substitutes the standard normal distribution with a Student's t-distribution (df=4) to accurately proxy the empirical "fat tails" observed in the KMV framework.
+* **Engineering:** Implements a dynamic debt barrier ($\gamma$) to neutralize unrealistic asset drift over long horizons. Substitutes the standard normal distribution with a Student's t-distribution (df=30) to accurately proxy the empirical "fat tails" observed in the KMV framework.
 * **Insight:** Exposes the "Bank Leverage Trap"—illustrating how standard structural diffusion models artificially inflate long-term default risk for highly levered, systemically important financial institutions (SIFIs).
 
 ### 3. Market-Implied Yield Spread (Reduced-Form)
