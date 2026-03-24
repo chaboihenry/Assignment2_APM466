@@ -1,36 +1,44 @@
 # Corporate Credit Risk Term Structure Analysis 📈
 
-An end-to-end quantitative evaluation of the 1-to-7-year Probability of Default (PD) for The Toronto-Dominion Bank (TD). This project was developed to juxtapose theoretical structural models against empirical ratings data and live market-implied bond yields.
+**The Toronto-Dominion Bank (TD): A Multi-Model Perspective (2026-2033)**
 
-## 🎯 Executive Summary
-This repository contains the mathematical engines and visualization scripts required to project corporate default risk across multiple time horizons. By comparing three distinct quantitative frameworks, this project highlights the divergence between balance-sheet-derived structural risk and the reality of market/regulatory interventions in the Canadian banking sector.
+---
+
+## 📄 Executive Summary (APM466 Assignment 2)
+
+This study evaluates the creditworthiness of TD Bank across a 7-year horizon by juxtaposing three distinct quantitative frameworks. While the **CreditMetrics (Markov)** model provides a stable, ratings-based historical baseline (PD < 0.7%), the **Structural Merton/KMV** model reveals a theoretical "Leverage Trap," projecting an inflated risk profile (PD ~3.25%) due to the bank's high leverage ratio and the square-root-of-time scaling of uncertainty. 
+
+The **Market-Implied (Reduced-Form)** model serves as the real-time "truth," pricing a 1-year PD of **1.48%**. This suggests that while structural models are mathematically sound, they often fail to account for the "Too Big to Fail" regulatory backstops and proactive capital management inherent in Systemically Important Financial Institutions (SIFIs).
+
+---
 
 ## 🧠 Models Implemented
 
 ### 1. The CreditMetrics Model (Markov Chain)
 * **Mechanism:** Utilizes a first-order Markov process applied to S&P Global's historical 1-year transition matrices.
 * **Engineering:** Includes algorithmic normalization of "Not Rated" (NR) categories and the implementation of a continuous "Default" absorbing state to calculate cumulative transition probabilities ($M^t$).
-* **Insight:** Demonstrates the theoretical baseline while acknowledging the empirical reality of "Ratings Momentum" observed in multi-year S&P data.
+* **Insight:** Highlights the "Ratings Momentum" phenomenon, where empirical multi-year default rates often exceed pure Markovian projections.
 
-### 2. The Merton/KMV Model (Structural)
+### 2. The Merton/KMV Model (Structural / First Passage Time)
 * **Mechanism:** Treats corporate equity as a barrier option on the firm's assets using Black-Cox First Passage Time mathematics.
-* **Engineering:** Implements a dynamic debt barrier ($\gamma$) to neutralize unrealistic asset drift over long horizons. Substitutes the standard normal distribution with a Student's t-distribution (df=30) to accurately proxy the empirical "fat tails" observed in the KMV framework.
-* **Insight:** Exposes the "Bank Leverage Trap"—illustrating how standard structural diffusion models artificially inflate long-term default risk for highly levered, systemically important financial institutions (SIFIs).
+* **Engineering:** Implements a dynamic debt barrier ($\gamma$) to neutralize unrealistic asset drift over long horizons. Utilizes standard Brownian motion assumptions (Normal Distribution) to isolate the impact of leverage on term structure.
+* **Insight:** Exposes the **"Bank Leverage Trap."** In structural models, uncertainty scales by $\sqrt{T}$. For highly levered banks (~90% debt), this math forces the asset value to eventually "wander" into the debt barrier over long horizons, even if the bank is currently healthy.
 
 ### 3. Market-Implied Yield Spread (Reduced-Form)
 * **Mechanism:** Extracts the real-time default probability priced in by live fixed-income traders.
-* **Engineering:** Uses numerical root-finding (`scipy.optimize.fsolve`) to calculate the exact continuous Yield to Maturity (YTM) of a CAD-denominated TD corporate bond, accounting for exact day-count conventions and accrued interest, benchmarked against the Bank of Canada risk-free rate.
+* **Engineering:** Uses numerical root-finding (`scipy.optimize.fsolve`) to calculate the exact continuous Yield to Maturity (YTM) of a CAD-denominated TD corporate bond (Maturing 06/2027), accounting for exact day-count conventions and accrued interest ($AI$).
 
-## 📊 Visualizations
-*(Upload your `TD_Bank_PD_Term_Structure.png` to the repo and link it here)*
-![Cumulative PD Term Structure](link_to_your_image_here.png)
+## 📊 Term Structure Visualization
+*(Link your saved image here)*
+![Cumulative PD Term Structure](TD_Bank_PD_Term_Structure.png)
 
-## 🛠️ Tech Stack
-* **Language:** Python 3.x
-* **Libraries:** `NumPy` (Matrix exponentiation, array operations), `SciPy` (Numerical optimization, statistical distributions), `Matplotlib` (Data visualization), `Datetime` (Day-count convention handling).
+## 🛠️ Tech Stack & Methodology
+* **Python 3.x:** `NumPy` (Matrix math), `SciPy` (Optimization/Stats), `Matplotlib` (Visualization).
+* **Data Sources:** Bank of Canada (1Y T-Bill), Business Insider (TD Senior Unsecured CAD Bond), S&P Global (Transition Matrices).
+
+---
 
 ## 👨‍💻 Author
 **Henry Vianna**
 * BSc Honours (Mathematical Applications in Economics and Finance) | University of Toronto
-* Based in Toronto, ON
 * *Quantitative Finance | Algorithmic Trading | Data Science*
