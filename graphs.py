@@ -46,7 +46,6 @@ r = 0.04
 gamma = 0.04 # debt grows at 4% per year, neutralizies asset drift
 
 # calculate default probability over time
-df_fat_tails = 30
 merton_pd_curve = []
 for yr in years:
     # effective drift is now (r - gamma) + 0.5 * sigma_V^2
