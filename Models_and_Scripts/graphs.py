@@ -165,7 +165,7 @@ exact_ytm = fsolve(ytm_equation, 0.03, args=(t_flows, cash_flows, dirty_price))[
 # Market-Implied Probability of Default
 # ======================================
 # Define the baseline assumptions
-goc_1yr_yield = 0.0242  # 2.42% from Bank of Canada
+goc_1yr_yield = 0.0276  # 2.76% from Bank of Canada
 recovery_rate = 0.45    # 45% Standard Senior Unsecured Assumption
 
 # Calculate the Credit Spread and the PD

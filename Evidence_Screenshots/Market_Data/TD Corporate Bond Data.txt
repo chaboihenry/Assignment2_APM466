@@ -1,0 +1,38 @@
+=========================================================
+Data Source Appendix: TD Bank Corporate Bonds (CAD)
+=========================================================
+Issuer: The Toronto-Dominion Bank
+Seniority: Senior Unsecured
+Currency: CAD (Matching Government of Canada baseline)
+Observation Date: March 23, 2026
+
+---------------------------------------------------------
+1-Year Maturity (2027)
+ISIN: CA89117F7G86
+Coupon: 4.210% | Maturity: June 1, 2027
+URL: https://live.deutsche-boerse.com/bond/ca89117f7g86-the-toronto-dominion-bank-4-21-22-27?mic=XFRA
+
+---------------------------------------------------------
+2-Year Maturity (2028)
+ISIN: CA89117GTQ06
+Coupon: 4.477% | Maturity: Jan 18, 2028
+URL: https://cbonds.com/bonds/1400014/
+
+---------------------------------------------------------
+3-Year Maturity (2029)
+ISIN: CA89117GRJ80
+Coupon: 4.680% | Maturity: Jan 8, 2029
+URL: https://cbonds.com/bonds/1378384/
+
+---------------------------------------------------------
+4-Year Maturity (2030)
+ISIN: CA89117FWS42
+Coupon: 3.105% | Maturity: Apr 22, 2030
+URL: https://cbonds.com/bonds/714641/
+
+---------------------------------------------------------
+5-Year Maturity (2031)
+ISIN: CA8911457R92
+Coupon: 4.859% | Maturity: Mar 4, 2031
+URL: https://cbonds.com/bonds/293219/
+=========================================================
