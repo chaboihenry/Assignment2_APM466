@@ -12,7 +12,7 @@ This repository contains the mathematical engines and visualization scripts requ
 * **Engineering:** Includes algorithmic normalization of "Not Rated" (NR) categories and the implementation of a continuous "Default" absorbing state to calculate cumulative transition probabilities ($M^t$).
 * **Insight:** Demonstrates the theoretical baseline while acknowledging the empirical reality of "Ratings Momentum" observed in multi-year S&P data.
 
-### 2. The Merton/KMV Model (Structural / First Passage Time)
+### 2. The Merton/KMV Model (Structural)
 * **Mechanism:** Treats corporate equity as a barrier option on the firm's assets using Black-Cox First Passage Time mathematics.
 * **Engineering:** Implements a dynamic debt barrier ($\gamma$) to neutralize unrealistic asset drift over long horizons. Substitutes the standard normal distribution with a Student's t-distribution (df=4) to accurately proxy the empirical "fat tails" observed in the KMV framework.
 * **Insight:** Exposes the "Bank Leverage Trap"—illustrating how standard structural diffusion models artificially inflate long-term default risk for highly levered, systemically important financial institutions (SIFIs).
