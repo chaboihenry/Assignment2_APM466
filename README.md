@@ -1,50 +1,50 @@
 # Corporate Credit Risk Term Structure Analysis 📈
-**The Toronto-Dominion Bank (TD): A Multi-Model Perspective (2026-2033)**
 
 ---
 
-## 📄 Executive Summary
-This study evaluates the creditworthiness of TD Bank across a 7-year horizon by juxtaposing three distinct quantitative frameworks. While the **CreditMetrics (Markov)** model provides a highly stable, ratings-based historical baseline (1-Year PD: 0.04%), the **Structural Merton/KMV** model reveals a theoretical "Leverage Trap," projecting an inflated long-term risk profile (7-Year PD ~3.25%) due to the bank's high leverage ratio and the square-root-of-time scaling of uncertainty. 
+## 📄 Official 1-Page Summary
+*(Click the image below to view the full PDF document)*
 
-The **Market-Implied (Reduced-Form)** model serves as the real-time "truth," pricing a 1-year PD of **0.87\%**. This suggests that while structural models are mathematically sound, they often fail to account for the "Too Big to Fail" regulatory backstops and proactive capital management inherent in Systemically Important Financial Institutions (SIFIs).
-
----
-
-## 🧠 Models Implemented
-
-### 1. The CreditMetrics Model (Markov Chain)
-* **Mechanism:** Utilizes a first-order Markov process applied to S\&P Global's historical 1-year transition matrices.
-* **Engineering:** Includes algorithmic normalization of "Not Rated" (NR) categories and the implementation of a continuous "Default" absorbing state to calculate cumulative transition probabilities ($M^t$).
-* **Output:** 1-Year PD of **0.04%** (Mapped to S\&P 'A' Bucket).
-* **Data Evidence:** [See Ratings\_Data/](Evidence_Screenshots/Ratings_Data/)
-
-### 2. The Merton/KMV Model (Structural)
-* **Mechanism:** Treats corporate equity as a European call option on the firm's assets using the Black-Scholes-Merton framework.
-* **Engineering:** Solves a non-linear system of equations (`scipy.optimize.fsolve`) to back-out latent Asset Value ($V = \$1.69T$) and Volatility ($\sigma_V = 0.0194$). Implements a dynamic debt barrier ($\gamma$) to neutralize unrealistic asset drift over long horizons.
-* **Insight:** Exposes the **"Bank Leverage Trap."** In structural models, uncertainty scales by $\sqrt{T}$. For highly levered banks (90% debt), this math forces the asset value to eventually "wander" into the debt barrier over long horizons, even if the bank is currently healthy.
-* **Data Evidence:** [See Balance\_Sheet/](Evidence_Screenshots/Balance_Sheet/)
-
-### 3. Market-Implied Yield Spread (Reduced-Form)
-* **Mechanism:** Extracts the real-time default probability priced in by live fixed-income traders.
-* **Engineering:** Calculates the exact continuous Yield to Maturity (YTM) of a CAD-denominated TD corporate bond, accounting for exact day-count conventions and accrued interest. 
-* **Output:** Calculated a YTM spread of **48 bps** against the Bank of Canada risk-free rate, implying a 1-Year PD of **0.87\%** (assuming 45\% recovery).
-* **Technical Note:** Bootstrapping the curve to extract pure Zero-Coupon Spot Rates yields a slightly wider spread of **51 bps**. This 3 bps discrepancy accurately reflects the mathematical difference between YTM discounting and stripped spot pricing in an upward-sloping yield curve environment.
-* **Data Evidence:** [See Market\_Data/](Evidence_Screenshots/Market_Data/)
+<div align="center">
+  <a href="APM466_Assignment_2_1_page_summary.pdf">
+    <img src="Results/Assignment2_Summary_Image.png" alt="APM466 1-Page Summary" width="850" style="border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  </a>
+</div>
 
 ---
 
-## 📊 Results & Visualization
-The term structure below illustrates the divergence between historical rating stability and theoretical structural risk over a 7-year horizon.
+## 🔬 Technical Deep Dive & Methodology Notes
 
-![Cumulative PD Term Structure](Results/TD_Bank_PD_Term_Structure.png)
-![Yield Curve Credit Spread](Results/TD_vs_GoC_Credit_Spread.png)
-
-## 🛠️ Tech Stack
-* **Python 3.x:** `NumPy`, `SciPy`, `Matplotlib`, `yfinance`.
-* **Methodology:** Numerical optimization, Matrix exponentiation, and Continuous discounting.
+### The 3 Basis Point Discrepancy (YTM vs. Spot Spread)
+In evaluating the Market-Implied PD, two distinct continuous discounting methods were applied to the TD CAD Bond (Maturing 06/2027), yielding a minor but mathematically significant 3 bps spread discrepancy:
+1. **Yield to Maturity (YTM) Spread (48 bps):** Derived using a standard constant discount rate across all cash flows. Because the TD bond pays a 4.21% coupon, earlier cash flows are discounted at lower rates in a normal upward-sloping curve, pulling the average yield down slightly.
+2. **Bootstrapped Spot Spread (51 bps):** Derived by mathematically stripping out coupon payments to find the pure, theoretical "Zero-Coupon" rate. The pure 1-year spot rate is naturally higher than the YTM of a coupon-bearing bond. 
+*Note: The 48 bps YTM spread was ultimately utilized for the final PD calculation to reflect standard fixed-income trading quoting conventions.*
 
 ---
 
-## 👨‍💻 Author
-**Henry Vianna**
-* BSc Honours (Mathematical Applications in Economics and Finance) | University of Toronto
+## 📂 File Structure & Tech Stack
+
+**Language & Libraries:** Python 3.x, `NumPy`, `SciPy` (Optimization & Stats), `Matplotlib`, `yfinance`.
+
+```text
+Assignment2_APM466/
+│
+├── 📂 Models_and_Scripts/          
+│   ├── graphs.py                  # Final Term Structure Visualization
+│   ├── Merton_KMV_model.py        # Structural Model Solver
+│   ├── CreditMetrics_model.py     # Ratings Transition Logic
+│   └── td_spread_graph.py         # YTM & Spot Bootstrapping against GoC
+│
+├── 📂 Evidence_Screenshots/        
+│   ├── 📂 Market_Data/            # BoC Treasury Yields & TD CAD Bond Prices
+│   ├── 📂 Balance_Sheet/          # TD 2025 Form 40-F
+│   └── 📂 Ratings_Data/           # S&P Transition Matrices
+│
+├── 📂 Results/                     
+│   ├── Assignment2_Summary_Image.png  
+│   ├── TD_Bank_PD_Term_Structure.png
+│   └── TD_vs_GoC_Credit_Spread.png
+│
+├── APM466_Assignment_2_1_page_summary.pdf 
+└── README.md
